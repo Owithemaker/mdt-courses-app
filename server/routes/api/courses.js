@@ -45,7 +45,6 @@ async function loadCoursesCollection() {
     "mongodb://dare:abc123@ds147228.mlab.com:47228/courses-app",
     { useNewUrlParser: true, useUnifiedTopology: true }
   );
-  //   console.log(client);
 
   return client.db("courses-app").collection("courses");
 }
