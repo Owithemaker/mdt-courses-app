@@ -52,7 +52,8 @@ body {
   display: inline-block;
   margin-right: 1rem;
   border: 1px solid #b22538;
-  padding: 0.5rem;
+  padding: 0.3rem 1rem;
   font-size: 1rem;
+  border-radius: 20px;
 }
 </style>

@@ -6,23 +6,37 @@
 
     <!-- Search Bar -->
     <div class="search-wrapper">
-      <input type="text" v-model="search" placeholder="Search title.." />
+      <input
+        type="text"
+        v-model="search"
+        @keyup="keywordSearch"
+        placeholder="Search title.."
+      />
+      <select v-model="filteredChoice" @change="filteredSearch">
+        <option value="Maths">Maths</option>
+        <option value="English">English</option>
+        <option value="Economics">Economics</option>
+      </select>
+
+      <button @click="sortSearch">Sort Topics</button>
     </div>
 
     <div class="courses-container">
       <div
         class="course"
-        v-for="(course, index) in filteredList"
+        v-for="(course, index) in filteredcourses"
         v-bind:item="course"
         v-bind:index="index"
         v-bind:key="course._id"
       >
-        {{
-          `${course.createdAt.getDate()}/${course.createdAt.getMonth()}/${course.createdAt.getFullYear()}`
-        }}
         <p class="course-topic">{{ course.topic }}</p>
         <p class="course-location">{{ course.location }}</p>
         <p class="course-price">{{ course.price }}</p>
+        <p class="course-creation-date">
+          {{
+            `${course.createdAt.getDate()}/${course.createdAt.getMonth()}/${course.createdAt.getFullYear()}`
+          }}
+        </p>
       </div>
     </div>
   </div>
@@ -35,6 +49,7 @@ export default {
   data() {
     return {
       courses: [],
+      filteredcourses: [],
       error: "",
       topic: "",
       location: "",
@@ -42,13 +57,43 @@ export default {
       name: "",
       email: "",
       search: "",
+      filteredChoice: "",
     };
   },
-  computed: {
-    filteredList() {
-      return this.courses.filter((course) => {
+  methods: {
+    keywordSearch() {
+      this.filteredcourses = this.courses.filter((course) => {
         return course.topic.toLowerCase().includes(this.search.toLowerCase());
       });
+    },
+
+    filteredSearch() {
+      this.filteredcourses = this.filteredcourses.filter((course) => {
+        return course.topic
+          .toLowerCase()
+          .includes(this.filteredChoice.toLowerCase());
+      });
+    },
+
+    dynamicSort(property) {
+      var sortOrder = 1;
+      if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+      }
+      return function(a, b) {
+        /* next line works with strings and numbers,
+         * and you may want to customize it to your needs
+         */
+        var result =
+          a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+        return result * sortOrder;
+      };
+    },
+
+    sortSearch() {
+      console.log("sorted");
+      this.filteredcourses = this.courses.sort(this.dynamicSort("topic"));
     },
   },
 
@@ -67,6 +112,7 @@ export default {
 
     try {
       this.courses = await CourseService.getCourses();
+      this.filteredcourses = this.courses;
     } catch (err) {
       this.error = err.message;
     }
