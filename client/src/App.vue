@@ -38,7 +38,7 @@ body {
   border-radius: 4px;
   background: #f9f9f9;
   border: 1px solid #ddd;
-  height: 90vh;
+  min-height: 90vh;
 }
 .p-navigation {
   display: flex;
