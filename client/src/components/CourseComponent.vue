@@ -6,12 +6,7 @@
 
     <!-- Search Bar -->
     <div class="search-wrapper">
-      <input
-        type="text"
-        v-model="search"
-        @keyup="keywordSearch"
-        placeholder="Search title.."
-      />
+      <input type="text" v-model="search" @keyup="keywordSearch" placeholder="Search title.." />
       <select v-model="filteredChoice" @change="filteredSearch">
         <option value="Maths">Maths</option>
         <option value="English">English</option>
@@ -34,7 +29,7 @@
         <p class="course-price">{{ course.price }}</p>
         <p class="course-creation-date">
           {{
-            `${course.createdAt.getDate()}/${course.createdAt.getMonth()}/${course.createdAt.getFullYear()}`
+          `${course.createdAt.getDate()}/${course.createdAt.getMonth()}/${course.createdAt.getFullYear()}`
           }}
         </p>
       </div>
@@ -81,7 +76,7 @@ export default {
         sortOrder = -1;
         property = property.substr(1);
       }
-      return function(a, b) {
+      return function (a, b) {
         /* next line works with strings and numbers,
          * and you may want to customize it to your needs
          */
@@ -140,11 +135,30 @@ export default {
   border-top: 4px solid #b22538;
 }
 
-.search-wrapper input {
+.search-wrapper {
+  display: flex;
+}
+
+.search-wrapper input,
+.search-wrapper select {
   width: 100%;
   max-width: 400px;
   font-size: 1rem;
   padding: 0.5rem;
   border: 1px solid #b22538;
+  margin-right: 1rem;
+}
+
+.search-wrapper button {
+  color: #fff;
+  text-decoration: none;
+  background: #dd4545;
+  display: inline-block;
+  margin-right: 1rem;
+  border: 1px solid #b22538;
+  padding: 0.3rem 1rem;
+  font-size: 1rem;
+  margin-left: 1rem;
+  border-radius: 20px;
 }
 </style>

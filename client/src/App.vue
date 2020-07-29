@@ -24,7 +24,7 @@ export default {
 
 <style>
 body {
-  background: #701f28;
+  background: url("https://ideastream-production.s3.amazonaws.com/uploads/2020/2/19/Book%20Shelves.jpg");
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -38,6 +38,7 @@ body {
   border-radius: 4px;
   background: #f9f9f9;
   border: 1px solid #ddd;
+  height: 90vh;
 }
 .p-navigation {
   display: flex;
